@@ -45,6 +45,26 @@ class _MyHomePageState extends State<MyHomePage> {
         )));
   }
 
+void showPopupMessage(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Message'),
+        content: Text('Your real first name is required to create a profile.'),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,9 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
 
-                
-              ],
-            )),
+                ])),
         body: Column(
           children: <Widget>[
             Padding(
@@ -142,7 +160,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: isFormFilled() ? Colors.red : Colors.blue,
                 child: IconButton(
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                       if (!isFormFilled()) {
+                      showPopupMessage(context);
+                    } else {
+                      
+                    }
+                    },
                     icon: Icon(
                       Icons.keyboard_arrow_right,
                     )),
